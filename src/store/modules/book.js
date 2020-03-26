@@ -18,7 +18,7 @@ const book = { // 存放所有使用的变量
         paginate: '',
         pagelist: null,
         offsetY: 0,
-        isBookmark: null
+        isBookmark: false
       },
       mutations: {
         SET_FILENAME: (state, fileName) => {

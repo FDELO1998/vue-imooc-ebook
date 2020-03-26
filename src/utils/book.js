@@ -1,3 +1,5 @@
+import { getReadTime } from './localStorage'
+
 export const FONT_SIZE_LIST = [
    { fontSize: 12 },
    { fontSize: 14 },
@@ -23,7 +25,9 @@ export function themeList(vue) {
       style: {
         body: {
          color: '#4c5059',
-         background: '#cecece'
+         background: '#cecece',
+         'padding-top': '48px',
+         'padding-bottom': '48px'
         }
       }
     },
@@ -33,7 +37,9 @@ export function themeList(vue) {
       style: {
         body: {
          color: '#5c5b56',
-         background: '#c6c2b6'
+         background: '#c6c2b6',
+         'padding-top': '48px',
+         'padding-bottom': '48px'
         }
       }
     },
@@ -43,7 +49,9 @@ export function themeList(vue) {
       style: {
         body: {
           color: '#404c42',
-        background: '#a9c1a9'
+        background: '#a9c1a9',
+        'padding-top': '48px',
+         'padding-bottom': '48px'
         }
       }
     },
@@ -53,7 +61,9 @@ export function themeList(vue) {
       style: {
         body: {
           color: '#cecece',
-        background: '#000000'
+        background: '#000000',
+        'padding-top': '48px',
+         'padding-bottom': '48px'
         }
       }
     }
@@ -79,9 +89,22 @@ export function removeCss(href) {
 }
 
 export function removeALLCss() {
-  const RESURL = 'http://192.168.1.107:9000/theme/'
+  const RESURL = 'http://192.168.1.103:9000/theme/'
   removeCss(RESURL + 'theme_default.css')
   removeCss(RESURL + 'theme_eye.css')
   removeCss(RESURL + 'theme_gold.css')
   removeCss(RESURL + 'theme_night.css')
 }
+
+export function getReadTimeByMinute(fileName) {
+  const readTime = getReadTime(fileName)
+  if (!readTime) {
+    return 0
+  } else {
+    return Math.ceil(readTime / 60)
+  }
+  }
+
+export function flatten(array) {
+    return [].concat(...array.map(item => [].concat(item, ...flatten(item.subitems))))
+  }
