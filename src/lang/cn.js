@@ -1,6 +1,6 @@
 const messages = {
   home: {
-    title: '书城',
+    title: '鱼罐头书城',
     hint: '计算机科学和软件工程',
     guessYouLike: '猜你喜欢',
     change: '换一批',
@@ -44,7 +44,7 @@ const messages = {
     statistics: '统计学'
   },
   shelf: {
-    title: '书架',
+    title: '鱼罐头书架',
     edit: '编辑',
     cancel: '取消',
     search: '搜索',

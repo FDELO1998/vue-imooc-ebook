@@ -25,7 +25,7 @@
       mixins: [ebookMixin],
       methods: {
         back() {
-          console.log('back')
+          this.$router.go(-1)
         }
       },
      props: {
@@ -42,7 +42,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 102;
+    z-index: 150;
     width: 100%;
     display: flex;
     height: px2rem(48);

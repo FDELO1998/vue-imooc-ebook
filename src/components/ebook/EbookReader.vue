@@ -16,6 +16,7 @@
     import { getFontFamily, saveFontFamily, getFontSize, saveFontSize, getTheme, saveTheme, getLocation } from '../../utils/localStorage'
     import Epub from 'epubjs'
     import { flatten } from '../../utils/book'
+    import { getLocalForage } from '../../utils/localForage'
     global.epub = Epub
     export default {
         mixins: [ebookMixin],
@@ -161,11 +162,12 @@
                     this.initGlobalStyle()
                 })
                 this.rendition.hooks.content.register(contents => {
+                    const URL = 'http://192.168.1.104:9000'
                     Promise.all([
-                    contents.addStylesheet('http://192.168.1.103:9000/fonts/daysOne.css'),
-                    contents.addStylesheet('http://192.168.1.103:9000/fonts/cabin.css'),
-                    contents.addStylesheet('http://192.168.1.103:9000/fonts/montserrat.css'),
-                    contents.addStylesheet('http://192.168.1.103:9000/fonts/tangerine.css')
+                    contents.addStylesheet(URL + '/fonts/daysOne.css'),
+                    contents.addStylesheet(URL + '/fonts/cabin.css'),
+                    contents.addStylesheet(URL + '/fonts/montserrat.css'),
+                    contents.addStylesheet(URL + '/fonts/tangerine.css')
                     ]).then(() => {
                     })
                 })
@@ -210,8 +212,7 @@
                   this.setNavigation(navItem)
                   }) // 通过遍历，扩展获取目录，并给一级，二级目录添加Level
             },
-            initEpub() {
-                const Url = 'http://192.168.1.103:9000/epub/' + this.fileName + '.epub'
+            initEpub(Url) {
                 this.book = new Epub(Url)
                 this.setCurrentBook(this.book)
                 this.initRendition()
@@ -226,10 +227,21 @@
             }
         },
         mounted() {
-        this.setFileName(this.$route.params.fileName.split('|').join('/')).then(() => {
-                this.initEpub()
+            const books = this.$route.params.fileName.split('|')
+            const fileName = books[1]
+            getLocalForage(fileName, (err, blob) => {
+                if (!err && blob) {
+                    this.setFileName(books.join('/')).then(() => {
+                        this.initEpub(blob)
+                    })
+                } else {
+                this.setFileName(books.join('/')).then(() => {
+                const url = 'http://192.168.1.104:9000/epub/' + this.fileName + '.epub'
+                this.initEpub(url)
             })
-        }
+            }
+       })
+    }
 }
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>

@@ -18,7 +18,9 @@ const book = { // 存放所有使用的变量
         paginate: '',
         pagelist: null,
         offsetY: 0,
-        isBookmark: false
+        isBookmark: false,
+        showregester: false,
+        user: ''
       },
       mutations: {
         SET_FILENAME: (state, fileName) => {
@@ -77,6 +79,12 @@ const book = { // 存放所有使用的变量
         },
         SET_IS_BOOKMARK: (state, isBookmark) => {
           state.isBookmark = isBookmark
+        },
+        SET_REGESTER: (state, showregester) => {
+          state.showregester = showregester
+        },
+        SET_USER: (state, user) => {
+          state.user = user
         }
       }
 }

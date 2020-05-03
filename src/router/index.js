@@ -25,9 +25,30 @@ const router = new VueRouter({
     redirect: '/store/home',
     children: [
     {
+      path: 'shelf',
+      component: () => import('.././views/store/StoreShelf.vue')
+    },
+    {
+      path: 'category',
+      component: () => import('.././views/store/StoreCategory.vue')
+    },
+    {
       path: 'home',
       component: () => import('.././views/store/StoreHome.vue')
-    }]
+    },
+    {
+      path: 'list',
+      component: () => import('.././views/store/StoreList.vue')
+    },
+    {
+      path: 'detail',
+      component: () => import('.././views/store/StoreDetail.vue')
+    },
+    {
+      path: 'speaking',
+      component: () => import('.././views/store/StoreSpeaking.vue')
+    }
+    ]
   }
  ]
 })

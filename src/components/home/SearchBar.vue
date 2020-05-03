@@ -1,5 +1,6 @@
 <template>
     <div>
+        <regester></regester>
   <div class="search-bar" :class="{'hide-title': !titleVisible, 'hide-shadow':!shadowVisible}">
       <transition name="title-move">
       <div class="search-bar-title-wrapper" v-show="titleVisible">
@@ -7,6 +8,10 @@
           <div class="title-text-wrapper">
               <span class="title-text title">{{$t('home.title')}}</span>
           </div>
+          <div class="title-icon-shake-wrapper">
+              <span class="title-icon-shake-wrapper-span">{{user}}</span>
+            <img src="../../assets/rege.png" class="rege-img" @click="close">
+        </div>
           <div class="title-icon-shake-wrapper" @click="showFlapCard">
               <span class="icon-shake icon" ></span>
           </div>
@@ -24,18 +29,24 @@
               <input type="text" class="input" 
               :placeholder="$t('home.hint')"
               v-model="searchText"
-              @click="showHotSearch">
+              @click="showHotSearch"
+              @keyup.13.exact="search">
           </div>
       </div>
     </div>
     <hot-search-list v-show="HotSearchVisible" ref="hotSearch"></hot-search-list>
   </div>
+
 </template>
 <script>
     import { storeHomeMixin } from '../../utils/mixin'
     import HotSearchList from './HotSearchList'
+    import Regester from '../../components/home/Regester'
     export default {
-        components: { HotSearchList },
+        components: { 
+            HotSearchList,
+            Regester 
+            },
         mixins: [storeHomeMixin],
         data() {
             return {
@@ -64,6 +75,14 @@
             }
         },
         methods: {
+            search() {
+            this.$router.push({
+                path: '/store/list',
+                query: {
+                 keyword: this.searchText
+                }
+            })
+            },
             showFlapCard() {
             this.setFlapCardVisible(true)
             },
@@ -73,7 +92,11 @@
               } else {
                   this.hideShadow()
               }
-           this.hideHotSearch()
+              if (this.HotSearchVisible) {
+                this.hideHotSearch()
+              } else {
+                  this.$router.push('/store/shelf')
+              }
             },
             hideHotSearch() {
             this.HotSearchVisible = false
@@ -140,6 +163,14 @@
             top: 0;
             height: px2rem(42);
             @include center;
+            .title-icon-shake-wrapper-span {
+            font-size: px2rem(15);
+            }
+            .rege-img{
+                margin-right: px2rem(25);
+                width: px2rem(30);
+                height: px2rem(20);
+            }
             }
         }
         .title-icon-back-wrapper{

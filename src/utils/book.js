@@ -89,7 +89,7 @@ export function removeCss(href) {
 }
 
 export function removeALLCss() {
-  const RESURL = 'http://192.168.1.103:9000/theme/'
+  const RESURL = 'http://192.168.1.104:9000/theme/'
   removeCss(RESURL + 'theme_default.css')
   removeCss(RESURL + 'theme_eye.css')
   removeCss(RESURL + 'theme_gold.css')
